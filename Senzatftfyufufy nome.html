@@ -1,0 +1,361 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.7">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="it"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Cyber Rover Pro - Stable Infinite Drive&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&amp;display=swap');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>:root {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>--neon-cyan: #00f3ff;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>--neon-magenta: #ff00ff;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>--motor-yellow: #ffd700;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>--danger-red: #ff3131;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>body {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: #020202;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #fff;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-family: 'Orbitron', sans-serif;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>touch-action: none;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>overflow: hidden;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>flex-direction: column;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>height: 100vh;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.hud-glass {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(180deg, rgba(15, 23, 42, 0.95) 0%, rgba(2, 6, 23, 1) 100%);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-bottom: 1px solid rgba(0, 243, 255, 0.3);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>z-index: 100;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>/* Tachimetro Fisso */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.speedo-container {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: relative;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 100px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>height: 100px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.speedo-svg {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transform: rotate(-220deg);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 100px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>height: 100px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.speedo-bg {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>fill: none;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>stroke: rgba(255, 255, 255, 0.05);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>stroke-width: 8;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>stroke-dasharray: 210 360;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.speedo-fill {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>fill: none;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>stroke: var(--neon-cyan);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>stroke-width: 8;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>stroke-dasharray: 0 360;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>stroke-linecap: round;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>filter: drop-shadow(0 0 8px var(--neon-cyan));</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.speedo-needle {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: absolute;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 2px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>height: 40px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: var(--danger-red);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>bottom: 50%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>left: calc(50% - 1px);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transform-origin: bottom center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transform: rotate(-130deg);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>z-index: 10;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 0 8px var(--danger-red);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>/* Viewport */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.viewport-3d {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>perspective: 1000px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: radial-gradient(circle at 50% 50%, #0f172a 0%, #000 100%);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>flex: 1;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: relative;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>overflow: hidden;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>/* Il Mondo Infinito */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>#world-plane {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: absolute;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 400vw;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>height: 400vh;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>top: -150vh;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>left: -150vw;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-image:<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>linear-gradient(rgba(0, 243, 255, 0.1) 2px, transparent 2px),</p>
+<p class="p1"><span class="Apple-converted-space">                </span>linear-gradient(90deg, rgba(0, 243, 255, 0.1) 2px, transparent 2px);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-size: 100px 100px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transform: rotateX(70deg); /* Angolazione fissa camera */</p>
+<p class="p1"><span class="Apple-converted-space">            </span>will-change: transform, background-position;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>/* Rover centrato */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>#car-center {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: absolute;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>top: 65%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>left: 50%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transform: translate(-50%, -50%);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transform-style: preserve-3d;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>z-index: 50;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.chassis-main {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 60px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>height: 90px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #1e293b;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 2px solid var(--neon-cyan);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 0 30px rgba(0, 243, 255, 0.3);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: relative;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transform-style: preserve-3d;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.motor-unit {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: absolute; width: 14px; height: 35px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: var(--motor-yellow); border: 1px solid #000;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.wheel-3d {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: absolute; width: 10px; height: 24px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #111; border: 1px solid #444; border-radius: 3px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.beam {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: absolute; top: -300px; width: 80px; height: 300px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(to top, rgba(0, 243, 255, 0.4), transparent);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>filter: blur(30px); display: none; transform-origin: bottom;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>/* UI */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.bottom-panel {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #020202;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 1.5rem;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: grid;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>grid-template-columns: 1fr 1fr;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gap: 1.5rem;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-top: 1px solid rgba(255,255,255,0.1);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.d-pad {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: grid;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>grid-template-columns: repeat(3, 1fr);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gap: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 140px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>height: 140px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.control-btn {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #0f172a;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid rgba(0, 243, 255, 0.2);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex; align-items: center; justify-content: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 1.2rem; color: var(--neon-cyan);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.control-btn:active, .control-btn.active {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: var(--neon-cyan); color: #000;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 0 15px var(--neon-cyan);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.cyber-btn {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(255, 0, 255, 0.1);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid var(--neon-magenta);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: var(--neon-magenta);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>clip-path: polygon(5% 0, 100% 0, 95% 100%, 0% 100%);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 10px; font-weight: 900; font-size: 0.8rem;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Header HUD --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="hud-glass px-6 py-2 grid grid-cols-3 gap-2 items-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="speedo-container"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;svg class="speedo-svg" viewBox="0 0 100 100"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;circle class="speedo-bg" cx="50" cy="50" r="40"&gt;&lt;/circle&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;circle id="speedo-fill" class="speedo-fill" cx="50" cy="50" r="40"&gt;&lt;/circle&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div id="needle" class="speedo-needle"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="absolute inset-0 flex flex-col items-center justify-center pt-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;span id="speed-text" class="text-lg font-black italic"&gt;0.00&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;span class="text-[5px] opacity-40 uppercase"&gt;M/S&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="text-center border-x border-white/5"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;span class="text-[6px] opacity-30 block uppercase"&gt;System Voltage&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;span id="volt-text" class="text-xl font-black text-green-400"&gt;4.20&lt;/span&gt;&lt;span class="text-[8px] text-green-400 ml-1"&gt;V&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="w-16 h-1 bg-white/5 mx-auto mt-1 rounded-full overflow-hidden"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="batt-level" class="h-full bg-green-500" style="width: 100%"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="pl-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;span class="text-[6px] opacity-30 block uppercase"&gt;Current Draw&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;span id="amp-text" class="text-xl font-black text-magenta-500"&gt;0.00&lt;/span&gt;&lt;span class="text-[8px] text-magenta-500 ml-1"&gt;A&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Area di Gioco --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="viewport-3d"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="world-plane"&gt;&lt;/div&gt;</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="car-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div id="chassis" class="chassis-main"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="beam-l" class="beam" style="left: 10px;"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="beam-r" class="beam" style="right: 10px;"&gt;&lt;/div&gt;</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="motor-unit" style="top: 10px; left: -14px;"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="w-fl" class="wheel-3d" style="top: 15px; left: -18px;"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="motor-unit" style="top: 10px; right: -14px;"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="w-fr" class="wheel-3d" style="top: 15px; right: -18px;"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="motor-unit" style="bottom: 10px; left: -14px;"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="w-bl" class="wheel-3d" style="bottom: 15px; left: -18px;"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="motor-unit" style="bottom: 10px; right: -14px;"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="w-br" class="wheel-3d" style="bottom: 15px; right: -18px;"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="absolute top-4 left-4 opacity-20 pointer-events-none"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="text-[10px] font-bold tracking-widest uppercase"&gt;ESP32_LINK: STABLE&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="text-[10px] font-bold tracking-widest uppercase text-cyan-400"&gt;CAM_MODE: INFINITE_FOLLOW&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Controlli --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="bottom-panel"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="flex justify-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="d-pad"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div&gt;&lt;/div&gt;&lt;div class="control-btn" id="btn-up"&gt;▲&lt;/div&gt;&lt;div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="control-btn" id="btn-left"&gt;◀&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="control-btn border-red-900 text-red-600" id="btn-stop"&gt;■&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="control-btn" id="btn-right"&gt;▶&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div&gt;&lt;/div&gt;&lt;div class="control-btn" id="btn-down"&gt;▼&lt;/div&gt;&lt;div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="flex flex-col gap-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;button id="btn-lights" class="cyber-btn"&gt;TOGGLE NEON&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="bg-black/50 p-2 border border-white/5 rounded text-[6px] font-mono opacity-40 uppercase"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>Physics: 60hz Locked&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>Render: CSS_GPU_ACCEL&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>Status: No Bug Found</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const MAX_RPM = 180;</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Lo stato del sistema</p>
+<p class="p1"><span class="Apple-converted-space">        </span>let state = {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>posX: 0, posY: 0,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>angle: 0,<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>currRpm: 0, targetRpm: 0,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>turn: 0,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>v: 4.2, a: 0.05</p>
+<p class="p1"><span class="Apple-converted-space">        </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const world = document.getElementById('world-plane');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const chassis = document.getElementById('chassis');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const needle = document.getElementById('needle');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const speedoFill = document.getElementById('speedo-fill');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function update() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Fisica Fluida</p>
+<p class="p1"><span class="Apple-converted-space">            </span>state.currRpm += (state.targetRpm - state.currRpm) * 0.08;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const speedPerc = Math.abs(state.currRpm) / MAX_RPM;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Angolazione e Direzione</p>
+<p class="p1"><span class="Apple-converted-space">            </span>state.angle += state.turn * (speedPerc * 4 || 1.5);</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Calcolo scorrimento (Infinite scroll logic)</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const rad = (state.angle - 90) * (Math.PI / 180);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const moveStep = (state.currRpm / MAX_RPM) * 15;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>state.posX -= Math.cos(rad) * moveStep;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>state.posY -= Math.sin(rad) * moveStep;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Applichiamo lo scorrimento e la rotazione al pavimento</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Nota: Il rover resta fisso al centro, ruotiamo il mondo per simulare la curva</p>
+<p class="p1"><span class="Apple-converted-space">            </span>world.style.backgroundPosition = `${state.posX}px ${state.posY}px`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>world.style.transform = `rotateX(70deg) rotateZ(${-state.angle}deg)`;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Animazioni Rover (Beccheggio e Rollio)</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const pitch = (state.targetRpm - state.currRpm) * 0.2;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const roll = state.turn * 3;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>chassis.style.transform = `rotateX(${pitch}deg) rotateY(${roll}deg)`;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Tachimetro (Arco 210 gradi)</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const arc = speedPerc * 148;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>speedoFill.style.strokeDasharray = `${arc} 360`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>needle.style.transform = `rotate(${-130 + (speedPerc * 210)}deg)`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('speed-text').innerText = (speedPerc * 1.85).toFixed(2);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Telemetria</p>
+<p class="p1"><span class="Apple-converted-space">            </span>state.a += ((0.05 + speedPerc * 1.5) - state.a) * 0.1;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>state.v -= state.a * 0.000002;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('volt-text').innerText = state.v.toFixed(2);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('amp-text').innerText = state.a.toFixed(2);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('batt-level').style.width = `${((state.v-3.2)/(4.2-3.2)*100)}%`;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>requestAnimationFrame(update);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function cmd(type) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>switch(type) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>case 'AVANTI': state.targetRpm = MAX_RPM; state.turn = 0; break;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>case 'INDIETRO': state.targetRpm = -MAX_RPM; state.turn = 0; break;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>case 'DESTRA': state.turn = 3; state.targetRpm = MAX_RPM * 0.7; break;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>case 'SINISTRA': state.turn = -3; state.targetRpm = MAX_RPM * 0.7; break;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>case 'STOP': state.targetRpm = 0; state.turn = 0; break;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>case 'LIGHTS':</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const beams = document.querySelectorAll('.beam');</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const isOff = beams[0].style.display === 'none' || beams[0].style.display === '';</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>beams.forEach(b =&gt; b.style.display = isOff ? 'block' : 'none');</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>break;</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const setup = (id, c) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const el = document.getElementById(id);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const start = (e) =&gt; { e.preventDefault(); cmd(c); el.classList.add('active'); };</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const end = () =&gt; { el.classList.remove('active'); if(c !== 'STOP') cmd('STOP'); };</p>
+<p class="p1"><span class="Apple-converted-space">            </span>el.onmousedown = start; el.ontouchstart = start;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>el.onmouseup = end; el.ontouchend = end; el.onmouseleave = end;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>setup('btn-up','AVANTI'); setup('btn-down','INDIETRO');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>setup('btn-left','SINISTRA'); setup('btn-right','DESTRA');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('btn-stop').onclick = () =&gt; cmd('STOP');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('btn-lights').onclick = () =&gt; cmd('LIGHTS');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>requestAnimationFrame(update);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
