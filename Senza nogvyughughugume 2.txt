@@ -1,21 +1,87 @@
-MIT License
+Complete Guide: Building the Cyber Rover Pro
 
-Copyright (c) 2024 Cyber Rover Pro
+This guide will walk you through the process of creating your own remote-controlled rover featuring a futuristic HUD interface. Follow each step carefully for a successful build.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+ 1. Components List
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+To complete this project, you will need the following hardware components:
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+Microcontroller: ESP32 (any model with Wi-Fi support).
+
+Motor Driver: H-Bridge module (e.g., L298N, DRV8833, or L293D).
+
+Motors: 2 or 4 DC motors (with matching gearboxes).
+
+Chassis: A robot chassis kit or a custom-made rigid base (plywood/plastic).
+
+Battery: 2S LiPo (7.4V) is highly recommended, or a 6x AA battery pack.
+
+Lights (Optional): A 5mm LED or a small LED strip for the "Neon" effect.
+
+ 2. Wiring Diagram (Connections)
+
+Connect the components according to the pin mapping defined in the firmware:
+
+Power Supply
+
+Connect the positive terminal of the battery to the VCC of the Motor Driver and the VIN pin of the ESP32.
+
+Connect all negative terminals together to GND (Common Ground).
+
+Motors to Driver (Example: L298N)
+
+Left Motor: Connect the wires to the OUT1 and OUT2 terminals of the driver.
+
+Right Motor: Connect the wires to the OUT3 and OUT4 terminals of the driver.
+
+ESP32 to Driver (Control Signals)
+
+GPIO 26 ➔ IN1 (Left Forward)
+
+GPIO 27 ➔ IN2 (Left Backward)
+
+GPIO 14 ➔ IN3 (Right Forward)
+
+GPIO 12 ➔ IN4 (Right Backward)
+
+Lighting System
+
+GPIO 2 ➔ LED Anode (+) (use a 220-ohm resistor for protection).
+
+ 3. Software Upload
+
+IDE Software: Download and install the Arduino IDE.
+
+ESP32 Support: Go to File > Preferences, add the ESP32 boards manager URL, and install the platform via Tools > Board > Boards Manager.
+
+File Preparation:
+
+Create a folder named cyber_rover_esp32.
+
+Inside, save the provided code as cyber_rover_esp32.ino.
+
+Upload: Connect the ESP32 to your PC via USB, select the correct COM port, and click the "Upload" arrow.
+
+4. First Run & Operation
+
+Follow these steps once the upload is successful:
+
+Wi-Fi Connection: Search for Wi-Fi networks on your smartphone. Connect to "CyberRover_AP" using the password password123.
+
+Access the Dashboard: Open Chrome or Safari and type this IP address: 192.168.4.1.
+
+Control Layout: The Cyberpunk HUD will appear.
+
+Use the directional arrows to move.
+
+The speedometer displays the estimated real-time speed.
+
+The "Neon" button toggles the physical LED and the on-screen visual effects.
+
+Technical Tips
+
+Inverted Direction: If the motors rotate in the wrong direction, simply swap the two wires of that specific motor on the driver terminals.
+
+Connection Stability: If the rover disconnects frequently, ensure the battery is fully charged. The ESP32 consumes significant power when running Wi-Fi and motors simultaneously.
+
+Expansions: You can integrate an ultrasonic sensor for obstacle avoidance by modifying the loop() section of the code.
